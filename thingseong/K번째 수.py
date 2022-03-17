@@ -3,7 +3,7 @@ import sys
 N = int(sys.stdin.readline())
 k = int(sys.stdin.readline())
 
-s, e = 1, k
+s, e = 1, N*N
 res = None
 while s <= e:
 
