@@ -1,9 +1,10 @@
 import sys
 
 N = int(sys.stdin.readline())
-k = int(sys.stdin.readline())
+nums = list(map(int, sys.stdin.readline().split()))
 
-s, e = 1, N*N
+
+s, e = 1, N
 res = None
 while s <= e:
 
@@ -11,7 +12,7 @@ while s <= e:
 
     t = 0
 
-    for i in range(1, N+1):
+    for i in range(0, N):
         t += min(m//i, N)
 
     if t >= k:
