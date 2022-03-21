@@ -29,7 +29,7 @@ def bfs(s):
                 G[nY][nX] = 0
                 Q.append((nX, nY))
                 cnt += 1
-    return cnt
+    return cnte
 
 res = []
 for i in range(N):
