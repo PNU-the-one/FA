@@ -4,7 +4,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
-public class Main {
+
+public class 이분그래프 {
 	private static boolean yes;
 	private static ArrayList<ArrayList<Integer>> edge = new ArrayList<>();
 	public static void main(String args[]) throws IOException {
