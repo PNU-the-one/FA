@@ -9,11 +9,11 @@ def bfs(s):
         n = Q.popleft()
 
         for i in G[n]:
-            if N[i] == 0: ## 처음 방문, 반대 색깔 지정
+            if N[i] == 0:
                 N[i] = -N[n]
                 Q.append(i)
             else:
-                if N[i] == N[n]: # 색깔이 같은 경우
+                if N[i] == N[n]:
                     return False
 
 
@@ -33,7 +33,7 @@ for _ in range(K):
         G[B].append(A)
 
     for v in range(1, V+1):
-        if N[v] == 0: # 모든 노드가 연결된건 아니니까 따로 떨어진 노드도 찾아서 해줘야함
+        if N[v] == 0:
             if bfs(v) == False:
                 check = False
                 break
