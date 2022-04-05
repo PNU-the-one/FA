@@ -18,19 +18,40 @@ rl.on("line", function (line) {
     return;
   }
   inputs.push(line.split(" ").map((v) => parseInt(v)));
-  console.log(solution(n, m, inputs).join("\n"));
+  console.log(
+    solution(
+      n,
+      m,
+      inputs.map(([a, b, c]) => [a - 1, b - 1, c])
+    ).join("\n")
+  );
   rl.close();
 }).on("close", function () {
   process.exit();
 });
 
-function solution(n, m, inputs) {
-  const initField = Array.from({ length: n }).map(() => ({}));
-  const field = inputs.reduce((pre, [a, b, c]) => {
-    pre[a - 1][b - 1] = c;
-    return pre;
-  }, initField);
-  return search(field);
-}
+function solution(n, m, edges) {
+  let dist = Array.from({ length: n }).map(() => Infinity);
+  dist[0] = 0;
 
-function search(field) {}
+  for (let i = 0; i < n - 1; i++) {
+    const nextDist = edges.reduce(
+      (curDist, [a, b, c]) => {
+        if (dist[b] > dist[a] + c) {
+          curDist[b] = dist[a] + c;
+        }
+        return curDist;
+      },
+      [...dist]
+    );
+    dist = [...nextDist];
+  }
+  const isExistInfinity = edges.reduce((isExist, [a, b, c]) => {
+    if (dist[b] > dist[a] + c) return true;
+    return isExist;
+  }, false);
+
+  if (isExistInfinity) dist = [0, -1];
+
+  return dist.slice(1, dist.length).map((v) => (v === Infinity ? -1 : v));
+}
