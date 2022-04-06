@@ -36,7 +36,7 @@ void bellma_Ford(){
     for (int i = 2; i <= N; i++)
     {
         if (dis[i] == INF) cout << -1 << endl;
-        else cout << Dist[i] << endl;
+        else cout << dis[i] << endl;
     }
 
 }
