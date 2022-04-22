@@ -9,32 +9,30 @@ function solution(gems) {
     },
     { count: 0, set: new Set() }
   ).count;
-  if (numOfGems <= 1) return [1, 1];
-  const gemSets = gems.reduce((set, gem) => {
-    if (!set[gem]) set[gem] = { start: 0, count: 0, set: new Set() };
-    return set;
-  }, {});
+  const map = new Map();
+  const result = [0, 1000001];
 
-  return gems.reduce(
-    (result, gem, idx) => {
-      gemSets[gem].start = idx + 1;
-      gemSets[gem].count = 1;
-      gemSets[gem].set.clear();
-      gemSets[gem].set.add(gem);
+  let start = 0;
+  let end = 0;
+  let count = 0;
 
-      Object.keys(gemSets)
-        .filter((key) => key !== gem)
-        .forEach((key) => {
-          if (gemSets[key].set.has(gem)) return;
-          gemSets[key].set.add(gem);
-          if (++gemSets[key].count < numOfGems) return;
-          const curResult = [gemSets[key].start, idx + 1];
-          if (result[1] - result[0] <= curResult[1] - curResult[0]) return;
-          result = curResult;
-        });
+  while (end < gems.length) {
+    while (map.size < numOfGems && end < gems.length) {
+      if (!map.has(gems[end])) map.set(gems[end], 0);
+      map.set(gems[end], map.get(gems[end]) + 1);
+      end++;
+    }
+    while (map.size >= numOfGems && start < end) {
+      map.set(gems[start], map.get(gems[start]) - 1);
+      if (map.get(gems[start]) <= 0) map.delete(gems[start]);
+      start++;
+    }
+    if (result[1] - result[0] > end - start) {
+      result[0] = start;
+      result[1] = end;
+    }
+    console.log(start, end);
+  }
 
-      return result;
-    },
-    [0, 1000001]
-  );
+  return result;
 }
